@@ -7,6 +7,28 @@ import Layout, { GradientBackground } from '../components/Layout';
 import ArrowIcon from '../components/ArrowIcon';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
+import algoliasearch from 'algoliasearch/lite';
+import instantsearch from 'instantsearch.js';
+import { searchBox, hits } from 'instantsearch.js/es/widgets';
+
+const searchClient = algoliasearch('K8HK7SA8WQ', '14a0ba158cf035c8a5c98b1d1990c340');
+
+const search = instantsearch({
+  indexName: 'demo_ecommerce',
+  searchClient,
+});
+
+search.addWidgets([
+  searchBox({
+    container: "#searchbox"
+  }),
+
+  hits({
+    container: "#hits"
+  })
+]);
+
+search.start();
 
 export default function Index({ posts, globalData }) {
   return (
